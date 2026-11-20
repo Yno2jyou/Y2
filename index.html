@@ -44,10 +44,15 @@ h1 small{font-size:12px;font-weight:400;color:var(--mute);letter-spacing:.2em;ma
 #syn .ac{display:flex;gap:10px;margin-top:32px}
 #syn .ac .pri{background:var(--red);border-color:var(--red);color:#fff}
 @media (max-width:700px){h1{font-size:13px;letter-spacing:.15em}h1 small{display:block;margin:4px 0 0 20px}button{padding:6px 10px;font-size:12px}header{padding:10px 12px}}
+body{height:100dvh}.nv{display:none;flex:none;white-space:nowrap}#hint{display:none;text-align:center;font-size:12px;color:var(--mute);letter-spacing:.1em;padding:6px 12px 0}
+@media (max-width:700px){main{padding:0}.stage{width:100%;height:auto}#page{box-shadow:none;border-radius:0}.nv{display:block;padding:12px 16px;font-size:15px}footer{gap:10px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px))}#cnt{min-width:52px;font-size:12px;letter-spacing:.05em}#fs{display:none}#syn{padding-left:20px;padding-right:20px}#syn p{font-size:15px;line-height:2}.th{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px) and (orientation:portrait){#hint{display:block}}
+@media (orientation:landscape) and (max-height:500px){header{padding:4px 12px}h1 small{display:none}footer{padding:4px 12px}.nv{display:none}#hint{display:none}}
 </style></head><body>
 <header><h1><i></i>異邦人の手帳<small>Y2</small></h1><div class="tools"><button id="tp">TOP</button><button id="sb">あらすじ</button><button id="gb">一覧</button><button id="fs">全画面</button></div></header>
 <main><div class="stage"><img id="page" alt=""><button class="hit l" id="pv" aria-label="前のページ"></button><button class="hit r" id="nx" aria-label="次のページ"></button><div class="arrow l">‹</div><div class="arrow r">›</div></div></main>
-<footer><div class="bar"><b id="pr"></b></div><div id="cnt"></div></footer>
+<div id="hint">横向きにすると大きく読めます</div>
+<footer><button class="nv" id="pb" aria-label="前のページ">‹ 前へ</button><div class="bar"><b id="pr"></b></div><div id="cnt"></div><button class="nv" id="nb" aria-label="次のページ">次へ ›</button></footer>
 <section id="syn"><div class="in"><h2>異邦人の手帳</h2><p class="by">Y2</p><p>日本語がまったくわからない外国のおじさんは、小さな手帳に、知らない国の言葉をひとつずつ書きとめるのが楽しみでした。サッカー場の大歓声、公園で泣いている子ども、レストランの店員さんの決まり文句。おじさんは耳にした言葉を、その国のていねいな礼儀だと受けとめていきます。けれど、意味もわからないまま笑顔で返したひとことが、ある夜、おそろしい誤解を呼びました。にこにこと黙るおじさんの顔は、人びとが自分の望みを映す大きな画面になり、国のゆくえを思いもよらない方向へ動かしていきます。</p><div class="ac"><button class="pri" id="sr">読みはじめる</button><button id="sc">閉じる</button></div></div></section>
 <section id="grid"><h2>ページ一覧<button id="gc">閉じる</button></h2><div class="th" id="th"></div></section>
 <script>
@@ -73,6 +78,8 @@ $("tp").onclick=()=>{$("grid").classList.remove("on");$("syn").classList.remove(
 $("sb").onclick=()=>$("syn").classList.add("on");
 $("sc").onclick=()=>$("syn").classList.remove("on");
 $("sr").onclick=()=>{$("syn").classList.remove("on");go(0)};
+$("pb").onclick=()=>go(c-1);$("nb").onclick=()=>go(c+1);
+if(!document.fullscreenEnabled)$("fs").style.display="none";
 addEventListener("keydown",e=>{if(e.key=="Escape")$("syn").classList.remove("on")});
 go(c,false);
 </script></body></html>
